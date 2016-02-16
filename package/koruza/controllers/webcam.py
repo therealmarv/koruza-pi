@@ -5,6 +5,7 @@ import datetime
 import imgurpython
 import time
 import requests
+import pbclient
 
 
 class WebCam(koruza.Application):
