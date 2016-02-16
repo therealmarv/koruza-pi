@@ -46,6 +46,9 @@ export default class SettingsPage extends React.Component {
             },
             {key: 'private_imgur_id', name: 'Imgur API ID'},
             {key: 'private_imgur_secret', name: 'Imgur API Secret'},
+            {key: 'pybossa_endpoint', name: 'PyBossa endpoint URL'},
+            {key: 'pybossa_api_key', name: 'PyBossa API key'},
+            {key: 'pybossa_project_id', name: 'PyBossa project ID'},
         ]
 
         this._onAuthenticated = this._onAuthenticated.bind(this);

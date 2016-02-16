@@ -7,7 +7,6 @@ import time
 import requests
 import pbclient
 
-
 class WebCam(koruza.Application):
     application_id = 'webcam'
 
@@ -71,7 +70,7 @@ class WebCam(koruza.Application):
         except (requests.HTTPError, requests.ConnectionError):
             return
 
-        api.make_request(
+        response = api.make_request(
             'POST',
             'upload',
             data={
@@ -83,5 +82,22 @@ class WebCam(koruza.Application):
             },
             force_anon=True,
         )
+
+        try:
+            image_url = response['link']
+        except KeyError:
+            return
+
+        # upload task to PyBossa
+        try:
+            pbclient.set('endpoint', config['pybossa_endpoint'])
+            pbclient.set('api_key', config['pybossa_api_key'])
+            task_info = {
+                'image': image_url
+            }
+            pbclient.create_task(config['pybossa_project_id'], task_info)
+        except KeyError:
+            return
+
 
 WebCam().start()
